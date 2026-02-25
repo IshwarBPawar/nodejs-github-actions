@@ -20,14 +20,19 @@ jobs:
 
    - name: Build Docker Image
      run: |
-       docker build -t ishwarpawar/nodejs-app:latest .
+       docker build -t ishwarpawar/nodejs-app:${{ github.sha }} .
 
    - name: Push Docker Image
      run: |
-       docker push ishwarpawar/nodejs-app:latest
+       docker push ishwarpawar/nodejs-app:${{ github.sha }}
 
 
    - name: Deploy to Kubernetes
      run: |
        kubectl apply -f k8s/deployment.yaml
        kubectl apply -f k8s/service.yaml
+   
+   - name: Update Kubernetes Image
+     run: |
+       kubectl set image deployment/nodejs-app \
+       nodejs-app=ishwarpawar/nodejs-app:${{ github.sha }}
