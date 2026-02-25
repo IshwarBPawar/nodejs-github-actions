@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
- res.send("Hello from GitHub Actions CI/CD updated code to check cicd with slef-hosted 🚀");
+ res.send("Hello devops🚀");
 });
 
 app.listen(3000, () => {
